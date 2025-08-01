@@ -1,0 +1,143 @@
+{% extends "base.html" %} {% block title %}User Profile{% endblock %} {% block
+content %}
+<div class="container">
+    <div class="profile-header">
+        <h1>User Profile</h1>
+        <a href="/logout" class="btn btn-danger">Logout</a>
+    </div>
+
+    <div class="profile-content">
+        {% if user %}
+        <div class="profile-card">
+            {% if user.picture %}
+            <div class="profile-image">
+                <img
+                    src="{{ user.picture }}"
+                    alt="Profile picture"
+                    class="profile-picture"
+                />
+            </div>
+            {% endif %}
+            <div class="profile-details">
+                <h2>{{ user.name }}</h2>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>User ID:</strong> {{ user.sub }}</p>
+                {% if user.email_verified %}
+                <p><span class="badge bg-success">Email verified</span></p>
+                {% else %}
+                <p><span class="badge bg-warning">Email not verified</span></p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="raw-profile-data">
+            <h3>Raw Profile Information</h3>
+            <pre>{{ user|pprint }}</pre>
+        </div>
+        {% else %}
+        <div class="alert alert-warning">
+            Not logged in. <a href="/login">Log in</a> to see your profile.
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="actions">
+        <a href="/" class="btn btn-primary">Back to Home</a>
+    </div>
+</div>
+
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .profile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    .profile-card {
+        display: flex;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    .profile-image {
+        margin-right: 20px;
+    }
+    .profile-picture {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+    .profile-details {
+        flex: 1;
+    }
+    .raw-profile-data {
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    .raw-profile-data pre {
+        white-space: pre-wrap;
+        word-break: break-all;
+    }
+    .actions {
+        margin-top: 20px;
+    }
+    .btn {
+        display: inline-block;
+        font-weight: 400;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        user-select: none;
+        border: 1px solid transparent;
+        padding: 0.375rem 0.75rem;
+        font-size: 1rem;
+        line-height: 1.5;
+        border-radius: 0.25rem;
+        transition:
+            color 0.15s ease-in-out,
+            background-color 0.15s ease-in-out,
+            border-color 0.15s ease-in-out,
+            box-shadow 0.15s ease-in-out;
+        text-decoration: none;
+    }
+    .btn-primary {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .btn-danger {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+    .badge {
+        display: inline-block;
+        padding: 0.25em 0.4em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: 0.25rem;
+    }
+    .bg-success {
+        background-color: #28a745;
+        color: white;
+    }
+    .bg-warning {
+        background-color: #ffc107;
+        color: black;
+    }
+</style>
+{% endblock %}
